@@ -1,0 +1,13 @@
+[
+    {
+        "name": "Tournament 1",
+        "location": "Barcelone",
+        "start_date": "2026-06-15",
+        "end_date": "2026-07-17",
+        "description": "Copa del Rey",
+        "nb_rounds": 4,
+        "current_round": 0,
+        "players": [],
+        "rounds": []
+    }
+]

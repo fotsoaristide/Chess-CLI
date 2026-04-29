@@ -31,6 +31,9 @@ class Match:
         elif self.score2 > self.score1:
             return self.player2
         return None  # Draw
+    
+    def is_draw(self):
+        return self.score1 == self.score2
 
     @staticmethod
     def from_dict(data):
