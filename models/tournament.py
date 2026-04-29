@@ -24,7 +24,8 @@ class Tournament:
 
     def add_player(self, player):
         """Add a player to the tournament."""
-        self.players.append(player)
+        if player not in self.players:
+            self.players.append(player)
 
     def add_round(self, round_obj):
         """Add a round to the tournament."""

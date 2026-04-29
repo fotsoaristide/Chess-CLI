@@ -9,5 +9,31 @@
         "current_round": 0,
         "players": [],
         "rounds": []
+    },
+    {
+        "name": "Tournament 2",
+        "location": "Paris",
+        "start_date": "2026-07-18",
+        "end_date": "2026-08-20",
+        "description": "Lige 1",
+        "nb_rounds": 4,
+        "current_round": 0,
+        "players": [
+            {
+                "first_name": "Marco",
+                "last_name": "polo",
+                "birthdate": "1991-04-23",
+                "chess_id": "BC12365",
+                "score": 0
+            },
+            {
+                "first_name": "Claudio",
+                "last_name": "Paz",
+                "birthdate": "1991-04-24",
+                "chess_id": "BC12365",
+                "score": 0
+            }
+        ],
+        "rounds": []
     }
 ]

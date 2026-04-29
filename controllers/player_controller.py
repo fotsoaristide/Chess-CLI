@@ -8,12 +8,17 @@ class PlayerController:
     def __init__(self):
         self.storage = JsonStorage("data/players.json")
 
+    def load_players(self):
+        """Load players from JSON and return Player objects."""
+        data = self.storage.load()
+        return [Player.from_dict(p) for p in data]
+
     def create_player(self):
         """Create a new player by getting input from the user."""
-        first_name = input("Prénom: ")
-        last_name = input("Nom: ")
-        birthdate = input("Date de naissance: ")
-        chess_id = input("ID échec (ex: AB12345): ")
+        first_name = input("First name: ")
+        last_name = input("Last name: ")
+        birthdate = input("Birth date (YYYY-MM-DD): ")
+        chess_id = input("Chess ID (e.g., AB12345): ")
 
         player = Player(first_name, last_name, birthdate, chess_id)
 
@@ -22,4 +27,4 @@ class PlayerController:
 
         self.storage.save(players)
 
-        print("Joueur ajouté !")
+        print("Player created successfully!")

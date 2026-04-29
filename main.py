@@ -19,11 +19,12 @@ def main():
             tournament_controller.create_tournament()
 
         elif choice == "3":
-            tournaments = tournament_controller.load_tournaments()
-            TournamentView.display_tournaments(tournaments)
+            tournament_controller.add_player_to_tournament(player_controller)
 
         elif choice == "4":
-            print("Goodbye!")
+            tournaments = tournament_controller.load_tournaments()
+            TournamentView.display_tournaments(tournaments)
+        elif choice == "5":
             break
 
 

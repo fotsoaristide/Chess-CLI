@@ -1,0 +1,16 @@
+[
+    {
+        "first_name": "Marco",
+        "last_name": "polo",
+        "birthdate": "1991-04-23",
+        "chess_id": "BC12365",
+        "score": 0
+    },
+    {
+        "first_name": "Claudio",
+        "last_name": "Paz",
+        "birthdate": "1991-04-24",
+        "chess_id": "BC12365",
+        "score": 0
+    }
+]
