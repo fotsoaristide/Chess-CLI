@@ -24,6 +24,7 @@ def main():
         elif choice == "4":
             tournaments = tournament_controller.load_tournaments()
             TournamentView.display_tournaments(tournaments)
+            
         elif choice == "5":
             break
 
