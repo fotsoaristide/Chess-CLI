@@ -82,7 +82,7 @@ class TournamentController:
 
         player_choice = int(input("Choose a player: ")) - 1
         player = players[player_choice]
-        
+
         # Add player to tournament
         tournament.add_player(player)
 
@@ -92,11 +92,12 @@ class TournamentController:
         print("Player added to tournament!")
 
     def save_players(self, player_controller, players):
-        player_controller.save_players(players)    
+        player_controller.save_players(players)
 
     def generate_first_round(self, players):
-        """Generate the first round of a tournament based on player rankings."""
-        players_sorted = sorted(players, key=lambda p: p.ranking, reverse=True)
+        """Generate the first round of a tournament."""
+        players_sorted = sorted(players, key=lambda
+                                p: p.ranking, reverse=True)
 
         mid = len(players_sorted) // 2
         top = players_sorted[:mid]
@@ -108,10 +109,12 @@ class TournamentController:
             matches.append(Match(top[i], bottom[i]))
 
         return matches
-     
+
     def generate_next_round(self, players):
-        """Generate subsequent rounds based on current player scores."""
-        players_sorted = sorted(players, key=lambda p: (p.score, p.ranking), reverse=True)
+        """Generate subsequent rounds."""
+        players_sorted = sorted(players, key=lambda
+                                p: (p.score, p.ranking),
+                                reverse=True)
 
         matches = []
         used = set()
@@ -142,7 +145,7 @@ class TournamentController:
             match.player2.score += 0.5
 
     def play_round(self, tournament, players, round_number):
-        """Play a round of the tournament, updating match scores and saving results."""
+        """Play a round of the tournament, updating and saving results."""
         if round_number == 1:
             matches = self.generate_first_round(players)
         else:
@@ -158,10 +161,11 @@ class TournamentController:
 
         # save the updated player data
         if self.player_controller:
-            self.save_players_from_tournament(self.player_controller, tournament)
+            self.save_players_from_tournament(self.player_controller,
+                                              tournament)
 
         round_obj.end_round()
-        tournament.add_round(round_obj)  
+        tournament.add_round(round_obj)
 
         # Save updated tournament with new round and match results
         tournaments = self.load_tournaments()
@@ -171,10 +175,9 @@ class TournamentController:
                 tournaments[i] = tournament
                 break
 
-        self.save_tournaments(tournaments)  
+        self.save_tournaments(tournaments)
 
     def save_players_from_tournament(self, player_controller, tournament):
-        """Save all players from the tournament to ensure their scores are updated."""
+        """Save all players from the tournament."""
         all_players = tournament.players
-        player_controller.save_players(all_players)  
-    
+        player_controller.save_players(all_players)

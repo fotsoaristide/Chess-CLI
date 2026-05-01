@@ -35,5 +35,16 @@
             }
         ],
         "rounds": []
+    },
+    {
+        "name": "Tournamnet 3",
+        "location": "Munich",
+        "start_date": "2026-0918",
+        "end_date": "2026-10-20",
+        "description": "championnat",
+        "nb_rounds": 4,
+        "current_round": 0,
+        "players": [],
+        "rounds": []
     }
 ]

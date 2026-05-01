@@ -4,6 +4,7 @@
         "last_name": "polo",
         "birthdate": "1991-04-23",
         "chess_id": "BC12365",
+            "ranking": 1000,
         "score": 0
     },
     {
@@ -11,6 +12,7 @@
         "last_name": "Paz",
         "birthdate": "1991-04-24",
         "chess_id": "BC12365",
+        "ranking": 999,
         "score": 0
     }
 ]

@@ -35,5 +35,6 @@ class Round:
             start_date=data.get("start_date"),
             end_date=data.get("end_date"),
         )
-    def __str__(self):        
+
+    def __str__(self):
         return f"{self.name} ({len(self.matches)} matches)"

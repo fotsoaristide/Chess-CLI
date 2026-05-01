@@ -1,14 +1,14 @@
 """Tournament view class for displaying tournament information."""
 
+
 class TournamentView:
-    
+
     @staticmethod
     def display_tournaments(tournaments):
         print("\n=== Lists of tournaments ===")
         for t in tournaments:
             print(t)
 
-    
     @staticmethod
     def display_matches(matches):
         print("\n===== MATCHS =====")

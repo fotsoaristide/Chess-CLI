@@ -31,7 +31,7 @@ class Match:
         elif self.score2 > self.score1:
             return self.player2
         return None  # Draw
-    
+
     def is_draw(self):
         return self.score1 == self.score2
 
@@ -46,4 +46,5 @@ class Match:
         )
 
     def __str__(self):
-        return f"{self.player1} ({self.score1}) vs {self.player2} ({self.score2})"
+        return (f"{self.player1} ({self.score1}) vs "
+                f"{self.player2} ({self.score2})")

@@ -1,7 +1,8 @@
-"""Controller for managing chess players."""
+"""Manages player data and interactions between the model and view."""
 
 from models.player import Player
 from controllers.storage import JsonStorage
+from views.player_view import PlayerView
 
 
 class PlayerController:
@@ -9,27 +10,23 @@ class PlayerController:
         self.storage = JsonStorage("data/players.json")
 
     def load_players(self):
-        """Load players from JSON and return Player objects."""
         data = self.storage.load()
         return [Player.from_dict(p) for p in data]
 
+    def save_players(self, players):
+        data = [p.to_dict() for p in players]
+        self.storage.save(data)
+
     def create_player(self):
-        """Create a new player by getting input from the user."""
-        first_name = input("First name: ")
-        last_name = input("Last name: ")
-        birthdate = input("Birth date (YYYY-MM-DD): ")
-        chess_id = input("Chess ID (e.g., AB12345): ")
+        """Create player using PlayerView."""
+        first_name, last_name, birthdate, chess_id = (
+            PlayerView.ask_player_data())
 
         player = Player(first_name, last_name, birthdate, chess_id)
 
-        players = self.storage.load()
-        players.append(player.to_dict())
+        players = self.load_players()
+        players.append(player)
 
-        self.storage.save(players)
+        self.save_players(players)
 
-        print("Player created successfully!")
-
-    def save_players(self, players):
-        """Save a list of Player objects to JSON."""
-        data = [p.to_dict() for p in players]
-        self.storage.save(data)    
+        PlayerView.display_success_creation()

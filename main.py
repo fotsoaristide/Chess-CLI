@@ -2,6 +2,7 @@
 
 from controllers.player_controller import PlayerController
 from controllers.tournament_controller import TournamentController
+from views.player_view import PlayerView
 
 
 def display_menu():
@@ -25,12 +26,6 @@ def choose_tournament(tournaments):
 
     choice = int(input("Choose a tournament: ")) - 1
     return tournaments[choice]
-
-
-def show_players(players):
-    print("\n=== Players ===")
-    for p in players:
-        print(f"{p.first_name} {p.last_name} | Rank: {p.ranking} | Score: {p.score}")
 
 
 def show_tournaments(tournaments):
@@ -109,7 +104,7 @@ def main():
 
         elif choice == "5":
             players = player_controller.load_players()
-            show_players(players)
+            PlayerView.display_players(players)
 
         elif choice == "6":
             print("Goodbye !")
