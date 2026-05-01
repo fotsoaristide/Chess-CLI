@@ -28,3 +28,8 @@ class PlayerController:
         self.storage.save(players)
 
         print("Player created successfully!")
+
+    def save_players(self, players):
+        """Save a list of Player objects to JSON."""
+        data = [p.to_dict() for p in players]
+        self.storage.save(data)    

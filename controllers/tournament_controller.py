@@ -61,7 +61,7 @@ class TournamentController:
             return
 
         # Show tournaments
-        print("\n=== SSelection of tournament ===")
+        print("\n=== Selection of tournament ===")
         for i, t in enumerate(tournaments):
             print(f"{i + 1}. {t.name}")
 
@@ -98,26 +98,34 @@ class TournamentController:
         """Generate the first round of a tournament based on player rankings."""
         players_sorted = sorted(players, key=lambda p: p.ranking, reverse=True)
 
+        mid = len(players_sorted) // 2
+        top = players_sorted[:mid]
+        bottom = players_sorted[mid:]
+
         matches = []
 
-        for i in range(0, len(players_sorted), 2):
-            if i + 1 < len(players_sorted):
-                match = Match(players_sorted[i], players_sorted[i + 1])
-                matches.append(match)
-                
+        for i in range(mid):
+            matches.append(Match(top[i], bottom[i]))
+
         return matches
      
     def generate_next_round(self, players):
         """Generate subsequent rounds based on current player scores."""
-        players_sorted = sorted(players, key=lambda p: p.score, reverse=True)
+        players_sorted = sorted(players, key=lambda p: (p.score, p.ranking), reverse=True)
 
         matches = []
+        used = set()
 
-        for i in range(0, len(players_sorted), 2):
-            if i + 1 < len(players_sorted):
-                match = Match(players_sorted[i], players_sorted[i + 1])
-                matches.append(match)
+        for i in range(len(players_sorted)):
+            if players_sorted[i] in used:
+                continue
 
+            for j in range(i + 1, len(players_sorted)):
+                if players_sorted[j] not in used:
+                    matches.append(Match(players_sorted[i], players_sorted[j]))
+                    used.add(players_sorted[i])
+                    used.add(players_sorted[j])
+                    break
         return matches
 
     def update_match_scores(self, match, result):
@@ -148,11 +156,12 @@ class TournamentController:
             result = TournamentView.ask_match_result()
             self.update_match_scores(match, result)
 
-        # after updating scores, we need to save the updated player data
-        self.save_players_from_tournament(self.player_controller, tournament)
+        # save the updated player data
+        if self.player_controller:
+            self.save_players_from_tournament(self.player_controller, tournament)
 
         round_obj.end_round()
-        tournament.rounds.append(round_obj)  
+        tournament.add_round(round_obj)  
 
         # Save updated tournament with new round and match results
         tournaments = self.load_tournaments()
