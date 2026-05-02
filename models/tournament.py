@@ -21,6 +21,7 @@ class Tournament:
 
         self.players = []
         self.rounds = []
+        self.matches_history = []
 
     def add_player(self, player):
         """Add a player to the tournament."""
@@ -51,7 +52,8 @@ class Tournament:
             "nb_rounds": self.nb_rounds,
             "current_round": self.current_round,
             "players": [p.to_dict() for p in self.players],
-            "rounds": [r.to_dict() for r in self.rounds]
+            "rounds": [r.to_dict() for r in self.rounds],
+            "matches_history": self.matches_history
         }
 
     @staticmethod
@@ -64,7 +66,8 @@ class Tournament:
             data["start_date"],
             data["end_date"],
             data.get("description", ""),
-            data.get("nb_rounds", 4)
+            data.get("nb_rounds", 4),
+            data.get("matches_history", [])
         )
 
         tournament.current_round = data.get("current_round", 0)

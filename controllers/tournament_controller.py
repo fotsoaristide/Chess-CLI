@@ -110,25 +110,36 @@ class TournamentController:
 
         return matches
 
-    def generate_next_round(self, players):
-        """Generate subsequent rounds."""
+    def generate_next_round(self, players, tournament):
+        """Generate the next round of a tournament."""
         players_sorted = sorted(players, key=lambda
-                                p: (p.score, p.ranking),
-                                reverse=True)
+                                p: p.score, reverse=True)
 
         matches = []
-        used = set()
+        paired_players = set()
 
         for i in range(len(players_sorted)):
-            if players_sorted[i] in used:
+            if players_sorted[i].chess_id in paired_players:
                 continue
 
             for j in range(i + 1, len(players_sorted)):
-                if players_sorted[j] not in used:
-                    matches.append(Match(players_sorted[i], players_sorted[j]))
-                    used.add(players_sorted[i])
-                    used.add(players_sorted[j])
-                    break
+                if players_sorted[j].chess_id in paired_players:
+                    continue
+
+                pair = (players_sorted[i].chess_id,
+                        players_sorted[j].chess_id)
+                reverse_pair = (players_sorted[j].chess_id,
+                                players_sorted[i].chess_id)
+
+                if (pair in tournament.matches_history or
+                        reverse_pair in tournament.matches_history):
+                    continue
+
+                matches.append(Match(players_sorted[i], players_sorted[j]))
+                paired_players.add(players_sorted[i].chess_id)
+                paired_players.add(players_sorted[j].chess_id)
+                break
+
         return matches
 
     def update_match_scores(self, match, result):
@@ -149,7 +160,12 @@ class TournamentController:
         if round_number == 1:
             matches = self.generate_first_round(players)
         else:
-            matches = self.generate_next_round(players)
+            matches = self.generate_next_round(players, tournament)
+
+        for match in matches:
+            tournament.matches_history.append(
+                (match.player1.chess_id, match.player2.chess_id)
+                )
 
         round_obj = Round(name=f"Round {round_number}", matches=matches)
 

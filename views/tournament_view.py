@@ -17,7 +17,7 @@ class TournamentView:
 
     @staticmethod
     def ask_match_result():
-        print("\nRResult of match :")
+        print("\nResult of match :")
         print("1 -> Player 1 wins")
         print("2 -> Player 2 wins")
         print("3 -> Draw")
